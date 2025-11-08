@@ -1,0 +1,14 @@
+﻿
+
+<h1>hello @Model.Name</h1>
+<h2>age is :@Model.Age</h2>
+<h3>address ii :@Model.Adrress</h3>
+
+<ul> skills  
+	@{
+		foreach (var item in Model.Skills)
+		{
+			<li>@item</li>
+		}
+	}
+</ul>
