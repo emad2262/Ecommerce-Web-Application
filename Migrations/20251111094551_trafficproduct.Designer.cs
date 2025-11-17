@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce_Web_Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251109095244_initialcreate")]
-    partial class Initialcreate
+    [Migration("20251111094551_trafficproduct")]
+    partial class trafficproduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,9 @@ namespace Ecommerce_Web_Application.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Traffic")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

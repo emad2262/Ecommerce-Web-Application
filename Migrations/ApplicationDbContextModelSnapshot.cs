@@ -110,6 +110,9 @@ namespace Ecommerce_Web_Application.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Traffic")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");

@@ -1,0 +1,84 @@
+﻿@model ProductAndFilter
+@{var reldiscount =60;}
+
+<!-- Filter Bar-->
+<div class="filter-bar">
+    <form class="row g-3 align-items-center" action="/Customar/Home/Index">
+        <div class="col-md">
+            <input type="text" class="form-control" placeholder="product name" name="ProductName" value="@Model.filterWithVm.ProductName">
+        </div>
+        <div class="col-md">
+            <input type="number" class="form-control" placeholder="min price" name="MinPrice"
+                   name="MinPrice" value="@Model.filterWithVm.MinPrice">
+        </div>
+        <div class="col-md">
+            <input type="number" class="form-control" placeholder="max price" name="MaxPrice"
+                   name="MaxPrice" value="@Model.filterWithVm.MaxPrice">
+        </div>
+		<div class="col-md">
+            <select class="form-select" name="categories">
+
+                <option selected disabled>category list</option>
+				
+                @foreach (var item in Model.categories )
+                {
+                    
+                    <option value="@item.Id">@item.Name</option>
+
+                }
+			</select>
+           
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary px-4">Filter</button>
+        </div>
+    </form>
+</div>
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 pt-1">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (var item in Model.Products)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Sale badge-->
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">@item.Category.Name</div>
+                        @if (item.Discount > reldiscount)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; left: 0.5rem">hot sale</div>
+
+                        }
+                        <!-- Product image-->
+                        <a href="/Customar/Home/Details/@item.Id"><img class="card-img-top" src="~/images/@item.MainImg" alt="..." /></a>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">@item.Name</h5>
+                                <!-- Product price-->
+                                <span class="text-muted text-decoration-line-through">@item.Price</span>
+                                @((item.Price-(item.Price*item.Discount/100)).ToString("c"))
+
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+    <nav aria-label="Page navigation example" class="container">
+        <ul class="pagination  justify-content-center">
+            @for (int i=1; i<= Model.totalpagenumper; i++)
+            {
+                <li class="page-item"><a class="page-link" href="/Customar/Home/Index?page=@i">@i</a></li>
+            }
+        </ul>
+    </nav>
+    
+</section>
